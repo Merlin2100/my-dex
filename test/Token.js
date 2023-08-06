@@ -98,7 +98,7 @@ describe("Token", () => {
 
     })
 
-    describe("Sending Tokens", () => {
+    describe("Approvals", () => {
 
         let amount, transaction, receipt
 
@@ -138,4 +138,51 @@ describe("Token", () => {
 
     })
 
-})
+    describe("Delegated Token Tranfers", () => {
+
+        let amount, transaction, receipt
+
+        beforeEach(async () => {
+            amount = tokens(100)
+            transaction = await token.connect(deployer).approve(decentralizedExchnage.address, amount)
+        })
+
+        describe("Successful Delegated Token Transfer", () => {
+    
+            beforeEach(async () => {
+                transaction = await token.connect(decentralizedExchnage).transferFrom(deployer.address, receiver.address, amount)
+                receipt = await transaction.wait()
+            })
+
+            it("Transfes tokens", async () => {
+                expect(await token.balanceOf(deployer.address)).to.equal(tokens(999900))
+                expect(await token.balanceOf(receiver.address)).to.equal(amount)
+            })
+    
+            it("Emits a Transfer event", async () => {
+                const event = receipt.events[0]
+                expect(event.event).equal("Transfer")
+    
+                const args = event.args
+                expect(args._from).to.equal(deployer.address)
+                expect(args._to).to.equal(receiver.address)
+                expect(args._value).to.equal(amount)
+            })
+
+            it("Resets the allowance", async () => {
+                expect(await token.allowance(deployer.address, decentralizedExchnage.address)).to.equal(0)
+            })
+
+        })
+
+        describe("Failing Delegated Token Transfer", () => {
+
+                // Test for failing delegated token transfers go here ...
+
+            })
+
+        })
+
+    })
+
+
