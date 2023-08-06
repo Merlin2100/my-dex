@@ -1,5 +1,6 @@
 const { ethers } = require("hardhat")
 const { expect } = require("chai")
+const { wait } = require("@testing-library/user-event/dist/utils")
 
 
 const tokens = (n) => {
@@ -144,7 +145,8 @@ describe("Token", () => {
 
         beforeEach(async () => {
             amount = tokens(100)
-            transaction = await token.connect(deployer).approve(decentralizedExchnage.address, amount)
+            // transaction = await token.connect(deployer).approve(decentralizedExchnage.address, amount)
+            await token.connect(deployer).approve(decentralizedExchnage.address, amount)
         })
 
         describe("Successful Delegated Token Transfer", () => {
@@ -177,7 +179,21 @@ describe("Token", () => {
 
         describe("Failing Delegated Token Transfer", () => {
 
-                // Test for failing delegated token transfers go here ...
+                it("Rejects transfer it 'from' address doesn't have sufficient funds", async () => {
+                    const invalidAmount = tokens(1000001)
+                    await token.connect(deployer).approve(decentralizedExchnage.address, invalidAmount)
+                    await expect(token.connect(decentralizedExchnage).transferFrom(deployer.address, receiver.address, invalidAmount)).to.be.rejectedWith("Insufficient funds")
+                })
+
+                it("Rejects transfer if receiver is the zero address", async () => {
+                    await expect(token.connect(decentralizedExchnage).transferFrom(deployer.address, "0x0000000000000000000000000000000000000000", amount)).to.be.revertedWith("Transferring to zero address is not permitted")
+                })
+
+                it("Rejects transfer if sender doesn't have sufficient allowance", async () => {
+                    const invalidAmount = tokens(1000)
+                    await expect(token.connect(decentralizedExchnage).transferFrom(deployer.address, receiver.address, invalidAmount)).to.be.revertedWith("Insufficient allowance")
+                })
+
 
             })
 
