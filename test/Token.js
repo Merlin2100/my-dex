@@ -80,18 +80,18 @@ describe("Token", () => {
 
         describe("Failing Transfers", () => {
 
-        it("Rejects transfer it sender doesn't have sufficient funds", async () => {
+            it("Rejects transfer it sender doesn't have sufficient funds", async () => {
 
-            // The reciver account has no tokens,. Thus, trying to send 10 should be reverted.
-            const invalidAmount = tokens(10)
-            await expect(token.connect(receiver).transfer(deployer.address, invalidAmount)).to.be.revertedWith("Insufficient funds")
+                // The reciver account has no tokens. Thus, trying to send 10 should be reverted.
+                const invalidAmount = tokens(10)
+                await expect(token.connect(receiver).transfer(deployer.address, invalidAmount)).to.be.revertedWith("Insufficient funds")
 
-        })  
+            })  
 
-        // it("Rejects transfer if receiver is the zero address", async () => {
-        //     const amount = tokens(10)
-        //     await expect(token.connect(deployer).transfer("0x0000000000000000000000000000000000000000", amount)).to.berevertedWith("Transferring to zero address is no permitted")
-        // })
+            it("Rejects transfer if receiver is the zero address", async () => {
+                const amount = tokens(10)
+                await expect(token.connect(deployer).transfer("0x0000000000000000000000000000000000000000", amount)).to.be.revertedWith("Transferring to zero address is not permitted")
+            })
 
         })
 

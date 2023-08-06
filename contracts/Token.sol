@@ -31,10 +31,11 @@ contract Token {
 
     function transfer(address _to, uint _value) public returns (bool success){
 
-        // require(
-        //     _to != address(0),
-        //     "Transferring to zero address is not permitted"
-        // );
+        
+        require(
+            _to != address(0),
+            "Transferring to zero address is not permitted"
+        );
 
         require(
             balanceOf[msg.sender] >= _value,
