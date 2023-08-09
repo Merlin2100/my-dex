@@ -1,7 +1,5 @@
 const { ethers } = require("hardhat")
 const { expect } = require("chai")
-const { wait } = require("@testing-library/user-event/dist/utils")
-
 
 const tokens = (n) => {
     return ethers.utils.parseUnits(n.toString(), 18)
