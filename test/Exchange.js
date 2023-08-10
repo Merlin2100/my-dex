@@ -6,7 +6,7 @@ const tokens = (n) => {
 }
 
 describe("Exchange", () => {
-    let deployer, feeAccount, exchange
+    let deployer, feeAccount, exchange, token1, user1
 
     const feePercent = 10
 
@@ -14,9 +14,15 @@ describe("Exchange", () => {
         const accounts = await ethers.getSigners()
         deployer = accounts[0]
         feeAccount = accounts[1]
+        user1 = accounts[2]
 
         const Exchange = await ethers.getContractFactory("Exchange")
         exchange = await Exchange.deploy(feeAccount.address, feePercent)
+
+        const Token = await ethers.getContractFactory("Token")
+        token1 = await Token.deploy("My Token", "MT", 1000000)
+        
+        await token1.connect(deployer).transfer(user1.address, tokens(100))
     })
 
     describe("Deployment", () => {
@@ -27,6 +33,33 @@ describe("Exchange", () => {
 
         it("Tracks the fee percent", async () => {
             expect(await exchange.feePercent()).to.equal(feePercent)
+        })
+
+    })
+
+    describe("Depositing Tokens", () => {
+
+        let receipt
+        let amount = tokens(10)
+
+        before(async () => {
+            // Approve tokens
+            await token1.connect(user1).approve(exchange.address, amount)
+            // Deposit tokens
+            const transaction = await exchange.connect(user1).depositToken(token1.address, amount)
+            receipt = await transaction.wait()
+        })
+
+        it("Tracks the token deposit", async () => {
+            // Ensure the tokens were transferred to the exchange
+            expect(await token1.balanceOf(exchange.address)).to.equal(amount)
+            expect(await token1.balanceOf(user1.address)).to.equal(tokens(90))
+            // Ensure exchange keeps track of the deposits
+            expect(await exchange.tokens(token1.address, user1.address)).to.equal(amount)
+        })
+
+        xit("Tracks a Deposit event", async () => {
+
         })
 
     })
