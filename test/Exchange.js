@@ -56,10 +56,18 @@ describe("Exchange", () => {
             expect(await token1.balanceOf(user1.address)).to.equal(tokens(90))
             // Ensure exchange keeps track of the deposits
             expect(await exchange.tokens(token1.address, user1.address)).to.equal(amount)
+            expect(await exchange.balanceOf(token1.address, user1.address)).to.equal(amount)
         })
 
-        xit("Emits a Deposit event", async () => {
- 
+        it("Emits a Deposit event", async () => {
+            const event = receipt.events[1]
+            expect(event.event).to.equal("Deposit")
+
+            const args = event.args
+            expect(args._token).to.equal(token1.address)
+            expect(args._user).to.equal(user1.address)
+            expect(args._amount).to.equal(amount)
+            expect(args._balance).to.equal(amount)
         })
 
     })
