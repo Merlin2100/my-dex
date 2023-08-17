@@ -18,14 +18,14 @@ describe("Exchange", () => {
 
         const Exchange = await ethers.getContractFactory("Exchange")
         exchange = await Exchange.deploy(feeAccount.address, feePercent)
-   
+
         const Token = await ethers.getContractFactory("Token")
         token1 = await Token.deploy("My Token", "MT", 1000000)
 
         await token1.connect(deployer).transfer(user1.address, tokens(100))
     })
 
-   describe("Deployment", () => {
+    describe("Deployment", () => {
 
         it("Tracks the fee account", async () => {
             expect(await exchange.feeAccount()).to.equal(feeAccount.address)
@@ -35,9 +35,9 @@ describe("Exchange", () => {
             expect(await exchange.feePercent()).to.equal(feePercent)
         })
 
-   })
+    })
 
-   describe("Depositing Tokens", () => {
+    describe("Depositing Tokens", () => {
 
         let receipt
         let amount = tokens(10)
@@ -68,6 +68,44 @@ describe("Exchange", () => {
             expect(args._user).to.equal(user1.address)
             expect(args._amount).to.equal(amount)
             expect(args._balance).to.equal(amount)
+        })
+
+    })
+
+    describe("Withdrwaing Tokens", () => {
+
+        let receipt
+        let amount = tokens(10)
+
+        beforeEach(async () => {
+            // Depsoit tokens before withdrawing
+            // Approve tokens
+            await token1.connect(user1).approve(exchange.address, amount)
+            // Deposit tokens
+            await exchange.connect(user1).depositToken(token1.address, amount)
+
+            // Withdraw tokens
+            const transaction = await exchange.connect(user1).withdrawToken(token1.address, amount)
+            receipt = await transaction.wait()
+        })
+        
+        it("Withdraw tokens", async () => {
+            // Ensure the tokens were transferred to the user
+            expect(await token1.balanceOf(exchange.address)).to.equal(0)
+            expect(await token1.balanceOf(user1.address)).to.equal(tokens(100))
+            // Ensure exchange keeps track of the withdraw
+            expect(await exchange.balanceOf(token1.address, user1.address)).to.equal(0)
+        })
+
+        it("Emits a withdraw event", async () => {
+            const event = receipt.events[1]
+            expect(event.event).to.equal("Withdraw")
+
+            const args = event.args
+            expect(args._token).to.equal(token1.address)
+            expect(args._user).to.equal(user1.address)
+            expect(args._amount).to.equal(amount)
+            expect(args._balance).to.equal(0)
         })
 
     })
