@@ -6,6 +6,7 @@ import "./Token.sol";
 contract Exchange {
     address public feeAccount;
     uint public feePercent;
+    uint public orderCount;
 
     mapping(address => mapping(address => uint)) public tokens;
 
@@ -44,5 +45,9 @@ contract Exchange {
 
     function balanceOf(address _token, address _user) public view returns (uint) {
         return tokens[_token][_user];
+    }
+
+    function makeOrder(address _tokenGet, uint _amountGet, address _tokenGive, uint _amountGive) public {
+        orderCount = orderCount + 1;
     }
 }
