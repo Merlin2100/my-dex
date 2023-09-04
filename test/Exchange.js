@@ -145,20 +145,42 @@ describe("Checking Balances", () => {
                 expect(await exchange.orderCount()).to.equal(1)
             })
 
-            xit("Instantiates and stores the orders correctly", async () => {
-                
-            })
+            it("Instantiates and stores the orders correctly", async () => {
+                const orderId = 1
+                const {id, user, tokenGet, amountGet, tokenGive, amountGive, timestamp } = { ...(await exchange.orders(orderId)) }
 
-            xit("Emits an Order event", async () => {
-                
+                expect(id).to.equal(1)
+                expect(user).to.equal(user1.address)
+                expect(tokenGet).to.equal(token2.address)
+                expect(amountGet).to.equal(amount)
+                expect(tokenGive).to.equal(token1.address)
+                expect(amountGive).to.equal(amount)
+                // This is unix time. Since the value depends on when we execute teh test, it's hard
+                // to test for a specific time value. Instead, we just make sure it exists requiring
+                // it to be at least 1.
+                expect(timestamp).to.be.at.least(1)
+            })                
+
+            it("Emits an Order event", async () => {
+                const event = receipt.events[0]    
+                expect(event.event).to.equal("Order")
+
+                const args = event.args
+                expect(args._id).to.equal(1)
+                expect(args._user).to.equal(user1.address)
+                expect(args._tokenGet).to.equal(token2.address)
+                expect(args._amountGet).to.equal(amount)
+                expect(args._tokenGive).to.equal(token1.address)
+                expect(args._amountGive).to.equal(amount)
+                expect(args._timestamp).to.be.at.least(1)
             })
             
         })
 
         describe("Failing Orders", () => {
 
-            xit("Rejects order if user has insufficient balance", async () => {
-                
+            it("Rejects order if user has insufficient balance", async () => {
+                await expect(exchange.connect(user1).makeOrder(token2.address, amount, token1.address, amount)).to.be.revertedWith("Insufficient balance")
             })            
 
         })
