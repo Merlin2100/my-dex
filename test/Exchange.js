@@ -5,7 +5,6 @@ const tokens = (n) => {
     return ethers.utils.parseUnits(n.toString(), 18)
 }
 
-
 describe("Exchange", () => {
     let deployer, feeAccount, exchange, token1, token2, user1
 
