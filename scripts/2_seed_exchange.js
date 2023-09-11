@@ -64,7 +64,7 @@ async function main() {
 
     // user1 decides to cancel order 
     orderId = receipt.events[0].args._id
-    await exchange.connect(user2).cancelOrder(orderId)
+    await exchange.connect(user1).cancelOrder(orderId)
     console.log(`Cancelled order from ${user1.address}\n`)
 
     ////////////////////////////////////////////////////////////////
@@ -72,32 +72,32 @@ async function main() {
     //
 
     // user1 makes order
-    transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(100), MT.address, token(10))
+    transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(100), MT.address, tokens(10))
     receipt = await transaction.wait()
     console.log(`Made order from ${user1.address}\n`)
 
     // user2 fills order
-    orderId = receipt.evvents[0].args._id
+    orderId = receipt.events[0].args._id
     await exchange.connect(user2).fillOrder(orderId)
     console.log(`Flled order from ${user2.address}\n`)
 
     // user1 makes another order
-    transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(50), MT.address, token(15))
+    transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(50), MT.address, tokens(15))
     receipt = await transaction.wait()
     console.log(`Made order from ${user1.address}\n`)
 
     // user2  fills another order
-    orderId = receipt.evvents[0].args._id
+    orderId = receipt.events[0].args._id
     await exchange.connect(user2).fillOrder(orderId)
     console.log(`Flled order from ${user2.address}\n`)
 
     // user1 makes final order
-    transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(200), MT.address, token(20))
+    transaction = await exchange.connect(user1).makeOrder(mETH.address, tokens(200), MT.address, tokens(20))
     receipt = await transaction.wait()
     console.log(`Made order from ${user1.address}\n`)
 
     // user2 fills another order
-    orderId = receipt.evvents[0].args._id
+    orderId = receipt.events[0].args._id
     await exchange.connect(user2).fillOrder(orderId)
     console.log(`Flled order from ${user2.address}\n`)
 
