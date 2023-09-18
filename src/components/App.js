@@ -1,10 +1,20 @@
+import { useEffect } from 'react';
 import '../App.css';
 
 function App() {
+
+  const loadBlockcahinData = async () => {
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+    console.log(accounts[0])
+  }
+
+  useEffect(() => {
+    loadBlockcahinData()
+  })
   return (
     <div className="App">
       <div>
-
+        
         {/* Navbar */}
 
         <main className='exchange grid'>
