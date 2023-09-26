@@ -16,7 +16,7 @@ function App() {
   console.log(chainId)
 
   // Token smart contract
-  const MT = new ethers.Contract(config[chainId].MT-address, TOKEN_ABI, provider)
+  const MT = new ethers.Contract(config[chainId].MT.address, TOKEN_ABI, provider)
   console.log(MT.address)
   const MTSymbol = await MT.symbol()
   console.log(MTSymbol)
