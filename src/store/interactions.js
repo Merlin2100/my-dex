@@ -1,5 +1,4 @@
 import { ethers } from 'ethers';
-import { useDispatch } from 'react-redux';
 
 export const loadProvider = (dispatch) => {
     const connection = new ethers.providers.Web3Provider(window.ethereum)
