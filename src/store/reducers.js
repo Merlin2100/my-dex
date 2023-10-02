@@ -6,6 +6,12 @@ export const provider = (state = { value: 0 }, action) => {
             connection: action.connection
         }
 
+        case 'NETWORK_LOADED':
+          return {
+            ...state,
+            chainId: action.chainId
+          }
+
         default:
         return state
     }
