@@ -6,13 +6,34 @@ export const provider = (state = { value: 0 }, action) => {
             connection: action.connection
         }
 
-        case 'NETWORK_LOADED':
-          return {
-            ...state,
-            chainId: action.chainId
-          }
+      case 'NETWORK_LOADED':
+        return {
+          ...state,
+          chainId: action.chainId
+        }
 
-        default:
-        return state
+      case 'ACCOUNT_LOADED':
+        return {
+          ...state,
+          account: action.account
+        }
+
+      default:
+      return state
     }
   }
+
+export const tokens = (state = { loaded: false, contract: null }, action) => {
+  switch (action.type) {
+    case 'TOKEN_LOADED':
+      return {
+        ...state,
+        loaded: true,
+        contract: action.token,
+        symbol: action.symbol
+      }
+
+      default:
+        return state
+  }
+}  
