@@ -1,5 +1,6 @@
 import logo from '../assets/logo.png'
 import eth from '../assets/eth.svg'
+import config from '../config.json'
 import { loadAccount } from '../store/interactions.js'
 import { useSelector, useDispatch } from 'react-redux'
 import Blockies from 'react-blockies'
@@ -7,6 +8,7 @@ import Blockies from 'react-blockies'
 const Navbar = () => {
  
     const provider = useSelector(state => state.provider.connection)
+    const chainId = useSelector(state => state.provider.chainId)
     const account = useSelector(state => state.provider.account)
     const balance = useSelector(state => state.provider.balance)
 
@@ -17,7 +19,10 @@ const Navbar = () => {
     }
 
     const networkHandler = async (e) => {
-        console.log(e.target.value)
+        await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: e.target.value }]
+        })
     }
 
     return(
@@ -29,11 +34,13 @@ const Navbar = () => {
     
             <div className="exchange__header--networks flex">
                 <img src={eth} alt="" className='Eth Logo'></img>
-                <select name="networks" id="networks" value="0" onChange={networkHandler}>
-                    <option value="0" disabled>Select Network</option>
-                    <option value="0x7A69">Hardhat</option>
-                    <option value="0xAA36A7">Sepolia</option>
-                </select>
+                {chainId && (
+                    <select name="networks" id="networks" value={config[chainId] ? `0x${chainId.toString(16)}` : "0"} onChange={networkHandler}>
+                        <option value="0" disabled>Select Network</option>
+                        <option value="0x7A69">Hardhat</option>
+                        <option value="0xAA36A7">Sepolia</option>
+                    </select>
+                )} 
             </div>
     
             <div className="exchange__header--account flex">
@@ -44,7 +51,10 @@ const Navbar = () => {
                 ) }
                
                { account ? (
-                    <a href="">
+                    <a href={config[chainId] ? `${config[chainId].explorerURL}address/${account}` : "#"}
+                        target="_blank"
+                        rel="noreferrer"                    
+                    >
                         { account.slice(0,5) + "..." + account.slice(38,42) }
                         <Blockies 
                             seed={account}
