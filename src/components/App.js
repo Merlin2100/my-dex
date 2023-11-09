@@ -11,6 +11,7 @@ import {
 
 import Navbar from './Navbar.js';
 import Markets from './Markets.js';
+import Balance from './Balance.js';
 
 function App() {
 
@@ -56,7 +57,7 @@ function App() {
 
             <Markets />
             
-            {/* Balance */}
+            <Balance />
 
             {/* Order */}
 
