@@ -53,7 +53,7 @@ function App() {
         <Navbar />
 
         <main className='exchange grid'>
-          <section className='exchnage__section--left grid'>
+          <section className='exchange__section--left grid'>
 
             <Markets />
             
