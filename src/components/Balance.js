@@ -6,8 +6,8 @@ import { loadBalances } from '../store/interactions'
 
 const Balance = () => { 
 
-    const tokens = useSelector(state => state.tokens.contract)
-    const symbols = useSelector(state => state.provider.symbols)
+    const tokens = useSelector(state => state.tokens.contracts)
+    const symbols = useSelector(state => state.tokens.symbols)
     const exchange = useSelector(state => state.exchange.contract)
     const account = useSelector(state => state.provider.account)
 
@@ -17,7 +17,7 @@ const Balance = () => {
         if(exchange && tokens && account) {
             loadBalances(exchange, tokens, account, dispatch)
         }
-    }, [exchange, tokens, account])
+    }, [exchange, tokens, account, dispatch])
 
     return (
       <div className='component exchange__transfers'>
