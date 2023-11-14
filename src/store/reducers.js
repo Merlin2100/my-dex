@@ -1,3 +1,5 @@
+//import { TASK_TEST_RUN_MOCHA_TESTS } from "hardhat/builtin-tasks/task-names"
+
 export const provider = (state = {}, action) => {
     switch (action.type) {
       case 'PROVIDER_LOADED':
@@ -70,7 +72,14 @@ export const tokens = (state = DEFAULT_TOKENS_STATE, action) => {
   }
 }  
 
-export const exchange = (state = { loaded: false, contract: {} }, action) => {
+const DEFAULT_EXCHANGE_STATE = {
+  loaded: false,
+  contract: {},
+  transaction: { isSuccessful: false },
+  events: []
+}
+
+export const exchange = (state = DEFAULT_EXCHANGE_STATE, action) => {
   switch (action.type) {
     case 'EXCHANGE_LOADED':
     return {
@@ -91,6 +100,41 @@ export const exchange = (state = { loaded: false, contract: {} }, action) => {
         balances: [...state.balances, action.balance]
       }
 
+    case 'TRANSFER_REQUEST':
+      return {
+        ...state,
+        transaction: {
+          transactionType: 'Transfer',
+          isPending:  true,
+          isSuccwessful: false
+        },
+        transferInProgress: true
+      }
+
+    case 'TRANSFER_SUCCESS':
+      return {
+        ...state,
+        transaction: {
+          transactionType: 'Transfer',
+          isPending: false,
+          isSuccessful: true
+        },
+        transferInProgress: false,
+        events: [action.event, ...state.events]
+      }
+
+    case 'TRANSFER_FAIL':
+      return {
+        ...state,
+        transaction: {
+          transactionType: 'Transfer',
+          isPending:  false,
+          isSuccwessful: false,
+          isError: true
+        },
+        transferInProgress: false
+    }
+          
   default:
     return state
   }

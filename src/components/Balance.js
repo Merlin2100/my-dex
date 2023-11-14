@@ -1,23 +1,50 @@
 import eth from '../assets/eth.svg'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'  
-import { loadBalances } from '../store/interactions'
+import { loadBalances, transferTokens } from '../store/interactions'
 // import { exchange, tokens } from '../store/reducers'
 
 const Balance = () => { 
+    const [token1TransferAmount, setToken1TransferAmount] = useState(0)
 
     const tokens = useSelector(state => state.tokens.contracts)
-    const symbols = useSelector(state => state.tokens.symbols)
-    const exchange = useSelector(state => state.exchange.contract)
-    const account = useSelector(state => state.provider.account)
+    const symbols = useSelector(state => state.tokens.symbols) 
+    const tokenBalance = useSelector(state => state.tokens.balances)
 
+    const exchange = useSelector(state => state.exchange.contract)
+    const exchangeBalances = useSelector(state => state.exchange.balances)
+    const transferInProgress = useSelector(state => state.exchange.transferInProgress)
+
+    const provider = useSelector(state => state.provider.connection)
+    const account = useSelector(state => state.provider.account)
+    
     const dispatch = useDispatch()
+
+    const amountHandler = (e, token) => {
+      if (token.address === tokens[0].address) {
+        setToken1TransferAmount(e.target.value) 
+      }
+    }
+
+    //  Step 1: do Transfer, Check.
+    //  Step 2: Notify app that transfer is pending, Check.
+    //  Step 3: Get Confirmation from blockchain that transfer was successfull
+    //  Step 4: Notify app that transfer was successfull
+     // Step 5: Hadle transfer failures - notify app
+
+    const depositHandler = (e, token) => {
+      e.preventDefault()
+      if (token.address === tokens[0].address) {
+        transferTokens(provider, exchange, "Deposit", token, token1TransferAmount, dispatch)
+        setToken1TransferAmount(0)
+      }
+    }
 
     useEffect(() => {
         if(exchange && tokens && account) {
             loadBalances(exchange, tokens, account, dispatch)
         }
-    }, [exchange, tokens, account, dispatch])
+    }, [exchange, tokens, account,transferInProgress, dispatch])
 
     return (
       <div className='component exchange__transfers'>
@@ -34,14 +61,22 @@ const Balance = () => {
         <div className='exchange__transfers--form'>
           <div className='flex-between'>
             <p><small>Token</small><br /><img src={eth} alt="" />{symbols && symbols[0]}</p>
+            <p><small>Wallet</small><br />{tokenBalance && tokenBalance[0]}</p>
+            <p><small>Exchange</small><br />{exchangeBalances && exchangeBalances[0]}</p>
           </div>
   
-          <form>
-            <label htmlFor='token0'></label>
-            <input type='text' id='token0' placeholder='0.0000' />
+          <form onSubmit={(e) => depositHandler(e, tokens[0])}>
+            <label htmlFor='token0'>{symbols && symbols[0]} Amount</label>
+            <input 
+              type='text'
+              id='token0'
+              placeholder='0.0000'
+              value={ token1TransferAmount === 0 ? "" : token1TransferAmount }
+              onChange={(e) => amountHandler(e, tokens[0])}
+            />
   
             <button className='button' type='submit'>
-              <span></span>
+              <span>Deposit</span>
             </button>
           </form>
         </div>
