@@ -16,6 +16,7 @@ import Navbar from './Navbar.js';
 import Markets from './Markets.js';
 import Balance from './Balance.js';
 import Order from './Order.js';
+import PriceChart from './PriceChart.js';
 
 function App() {
 
@@ -74,7 +75,7 @@ function App() {
           </section>
           <section className='exchange__section--right grid'>
 
-            {/* PriceCahrt */}
+            <PriceChart />
 
             {/* Transactions */}
 
