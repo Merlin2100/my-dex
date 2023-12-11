@@ -1,10 +1,20 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { orderBookSelector } from "../store/selectors"
+import { fillOrder } from "../store/interactions"
 
 const OrderBook = () => {
 
+    const provider = useSelector(state => state.provider.connection)
+    const exchange = useSelector(state => state.exchange.contract)
     const symbols = useSelector(state => state.tokens.symbols)    
     const orderBook = useSelector(orderBookSelector)
+
+    const dispatch = useDispatch()
+
+
+    const fillOrderHandler = (order) => {
+      fillOrder(provider, exchange, order, dispatch)
+    }
 
     return (
       <div className="component exchange__orderbook">
@@ -29,7 +39,7 @@ const OrderBook = () => {
             <tbody>
               {orderBook && orderBook.sellOrders.map((order, index) => {
                 return(
-                  <tr key={index}>
+                  <tr key={index} onClick={() => fillOrderHandler(order)}>
                     <td>{order._token0AMount}</td>
                     <td style ={{ color: `${order._orderTypeClass}`}}>{order._tokenPrice}</td>
                     <td>{order._token1Amount}</td>
@@ -57,7 +67,7 @@ const OrderBook = () => {
             <tbody>
               {orderBook && orderBook.buyOrders.map((order, index) => {
                 return(
-                  <tr key={index}>
+                  <tr key={index} onClick={() => fillOrderHandler(order)}>
                     <td>{order._token0AMount}</td>
                     <td style ={{ color: `${order._orderTypeClass}`}}>{order._tokenPrice}</td>
                     <td>{order._token1Amount}</td>
