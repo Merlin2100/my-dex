@@ -35,7 +35,7 @@ contract Token {
         balanceOf[msg.sender] = totalSupply;
     }
 
-    function transfer(address _to, uint _value) public returns (bool success){
+    function transfer(address _to, uint _value) public returns (bool success) {
 
         _transfer(msg.sender, _to, _value);
         
@@ -46,7 +46,7 @@ contract Token {
 
         require(
             _spender != address(0),
-            "Approval to zero address is not permitted"
+            "Approval of zero address is not permitted"
         );
 
         allowance[msg.sender][_spender] = _value;
@@ -57,7 +57,6 @@ contract Token {
     }
 
     function transferFrom(address _from, address _to, uint _value) public returns (bool success) {
-
         require(
             allowance[_from][msg.sender] >= _value,
             "Insufficient allowance"

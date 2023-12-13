@@ -3,6 +3,7 @@ import { get, groupBy, reject, minBy, maxBy } from "lodash";
 import { ethers } from "ethers";
 import moment from "moment";
 
+const events = state => get(state, "exchange.events")
 const tokens = state => get(state, "tokens.contracts")
 const account = state => get(state, "provider.account")
 const allOrders = state => get(state, "exchange.allOrders.data", [])
@@ -98,7 +99,7 @@ const GREEN = "#25CE8F"
 const RED = "#F45353"
 
 const decorateOrderBookOrder = (order, tokens) => {
-    const orderType = order._tokenGive === tokens[1].address ? "buy": "sell"
+    const orderType = order._tokenGive === tokens[1].address ? "buy" : "sell"
 
     return ({
         ...order,
@@ -119,7 +120,7 @@ export const priceChartSelector = createSelector(
         orders = orders.filter((o) => o._tokenGive === tokens[0].address || o._tokenGive === tokens[1].address)
 
         // Sort orders by date ascending
-        orders = orders.sort((a, b) => a._timestampq - b._timestamp)
+        orders = orders.sort((a, b) => a._timestamp - b._timestamp)
 
         // Decorate orders
         orders = orders.map((o) => decorateOrder(o, tokens))
@@ -161,7 +162,7 @@ const buildGraphData = (orders) => {
         const low = minBy(group, "_tokenPrice")
         const close = group[group.length - 1]
 
-        return({
+        return ({
             x: new Date(hour),
             y: [open._tokenPrice, high._tokenPrice, low._tokenPrice, close._tokenPrice]
         })
@@ -183,7 +184,7 @@ const buildGraphData = (orders) => {
         // Step 1: Sort orders by time ascending
         orders = orders.sort((a, b) => a._timestamp - b._timestamp)
         // Step 2: Apply order colors (decorate orders)
-        // Step 3_ Sort orders by time descending fro UI
+        // Step 3: Sort orders by time descending for UI
 
         // Decorate orders
         orders = decorateFilledOrders(orders, tokens)
@@ -224,7 +225,7 @@ const buildGraphData = (orders) => {
     }
 
     // Show green price if order price is higher than previous order
-    // Show red price if oder price os lower than previous order
+    // Show red price if order price is lower than previous order
     if (previousOrder._tokenPrice <= tokenPrice) {
         return GREEN 
     } else {
@@ -239,7 +240,7 @@ export const myOpenOrdersSelector = createSelector(
     (account, tokens, orders) => {
         if (!tokens[0] || !tokens[1]) { return }
 
-        // Filter orders creates by current account
+        // Filter orders created by current account
         orders = orders.filter((o) => o._user === account)
 
         // Filter orders by selected tokens
@@ -326,3 +327,12 @@ const decorateMyFilledOrder = (order, account, tokens) => {
         _orderSign: orderType === "buy" ? "+" : "-"
     })
 }
+
+export const myEventsSelector = createSelector(
+    account,
+    events,
+    (account, events) => {
+        events = events.filter((e) => e.args._user === account)
+        return events
+    }
+)

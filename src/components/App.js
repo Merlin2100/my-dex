@@ -10,15 +10,16 @@ import {
   subscribeToEvents,
   loadAllOrders
 } from '../store/interactions.js';
-import OrderBook from './OrderBook.js';
 
 import Navbar from './Navbar.js';
 import Markets from './Markets.js';
 import Balance from './Balance.js';
 import Order from './Order.js';
+import OrderBook from './OrderBook.js';
 import PriceChart from './PriceChart.js';
 import Trades from './Trades.js';
-import Transactions from './Transactions.js';
+import Transactions from './Transactions.js'; 
+import Alert from './Alert.js';
 
 function App() {
 
@@ -88,7 +89,7 @@ function App() {
           </section>
         </main>
 
-        {/* ALert */}
+        <Alert />
 
       </div>
     </div>

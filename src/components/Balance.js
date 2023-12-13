@@ -2,7 +2,6 @@ import eth from '../assets/eth.svg'
 import { useEffect, useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'  
 import { loadBalances, transferTokens } from '../store/interactions'
-// import { exchange, tokens } from '../store/reducers'
 
 const Balance = () => { 
     const [isDeposit, setIsDeposit] = useState(true)
@@ -11,7 +10,7 @@ const Balance = () => {
 
     const tokens = useSelector(state => state.tokens.contracts)
     const symbols = useSelector(state => state.tokens.symbols) 
-    const tokenBalance = useSelector(state => state.tokens.balances)
+    const tokenBalances = useSelector(state => state.tokens.balances)
 
     const exchange = useSelector(state => state.exchange.contract)
     const exchangeBalances = useSelector(state => state.exchange.balances)
@@ -59,10 +58,10 @@ const Balance = () => {
     const withdrawHandler = (e, token) => {
       e.preventDefault() 
       if (token.address === tokens[0].address) {
-        transferTokens(provider, exchange, "Withdraw", token, token1TransferAmount, dispatch)
+        transferTokens(provider, exchange, "Withdrawal", token, token1TransferAmount, dispatch)
         setToken1TransferAmount(0)
       } else {
-        transferTokens(provider, exchange, "Withdraw", token, token2TransferAmount, dispatch)
+        transferTokens(provider, exchange, "Withdrawal", token, token2TransferAmount, dispatch)
         setToken2TransferAmount(0)
       }
     }
@@ -71,7 +70,7 @@ const Balance = () => {
         if(exchange && tokens && account) {
             loadBalances(exchange, tokens, account, dispatch)
         }
-    }, [exchange, tokens, account,transferInProgress, dispatch])
+    }, [exchange, tokens, account, transferInProgress, dispatch])
 
     return (
       <div className='component exchange__transfers'>
@@ -88,7 +87,7 @@ const Balance = () => {
         <div className='exchange__transfers--form'>
           <div className='flex-between'>
             <p><small>Token</small><br /><img src={eth} alt="" />{symbols && symbols[0]}</p>
-            <p><small>Wallet</small><br />{tokenBalance && tokenBalance[0]}</p>
+            <p><small>Wallet</small><br />{tokenBalances && tokenBalances[0]}</p>
             <p><small>Exchange</small><br />{exchangeBalances && exchangeBalances[0]}</p>
           </div>
   
@@ -119,12 +118,12 @@ const Balance = () => {
         <div className='exchange__transfers--form'>
           <div className='flex-between'>
             <p><small>Token</small><br /><img src={eth} alt="" />{symbols && symbols[1]}</p>
-            <p><small>Wallet</small><br />{tokenBalance && tokenBalance[1]}</p>
+            <p><small>Wallet</small><br />{tokenBalances && tokenBalances[1]}</p>
             <p><small>Exchange</small><br />{exchangeBalances && exchangeBalances[1]}</p>
           </div>
    
           <form onSubmit={ isDeposit ? (e) => depositHandler(e, tokens[1]) : (e) => withdrawHandler(e, tokens[1]) }>
-            <label htmlFor='token1'></label>
+            <label htmlFor='token1'>{symbols && symbols[1]} Amount</label>
             <input 
               type='text' 
               id='token1' 

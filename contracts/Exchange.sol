@@ -7,13 +7,13 @@ contract Exchange {
 
     struct _Order {
         // Attribute of an order
-        uint id; // Unique identifier fro order
-        address user; // USer who made order
+        uint id; // Unique identifier for order
+        address user; // User who made order
         address tokenGet; // Contract address of the token the user gets
         uint amountGet; // Amount the user gets
         address tokenGive; // Contract address of the token the user gives away
-        uint amountGive; // Amount the user was created
-        uint timestamp; // When the oder was created
+        uint amountGive; // Amount the user gives
+        uint timestamp; // When the order was created
     }
 
     address public feeAccount;
@@ -102,7 +102,7 @@ contract Exchange {
         
         require(
             _amountGet % 100 == 0,
-            "Invalid value for _amountGet. Must be multiple of 100"
+            "Invalid value for _amountGet. Must be multiple of 100."
         );
 
         orderCount = orderCount + 1;
@@ -190,7 +190,7 @@ contract Exchange {
             _order.amountGive
         );
 
-        // Mark oder as filled
+        // Mark order as filled
         orderFilled[_order.id] = true;
     }
 
@@ -202,20 +202,19 @@ contract Exchange {
         address _tokenGive,
         uint _amountGive
     ) internal {
-        
         // Fee is paid by the user who filled the order (msg.sender)
         // Fee is deduced from _amountGet
         uint _feeAmount = _amountGet * feePercent / 100;
 
-        // USer who fills the order must have sufficient balnce
+        // User who fills the order must have sufficient balnce
         require(
             balanceOf(_tokenGet, msg.sender) >= _amountGet + _feeAmount,
             "Insufficient balance"
         );
 
-        // Execute the tradef
-        // msg.sender is the user who filled the order
-        // while _user is the one who created the order
+        // Execute the trade
+        // msg.sender is the user who filled the order,
+        // while _user is the one who created the order.
         tokens[_tokenGet][msg.sender] -= _amountGet + _feeAmount;
         tokens[_tokenGet][_user] += _amountGet;
 

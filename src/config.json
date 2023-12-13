@@ -15,9 +15,33 @@
         }
     },
     "11155111": {
-        "explorerURL": "https://sepolia.etherscan.io/"
+        "explorerURL": "https://sepolia.etherscan.io/",
+        "exchange": {
+            "address": "0xBcabc7742689fE92C27DEFb9B65e670ed42fdA24"
+        },
+        "MT": {
+            "address": "0x7d7582834aFdBb86FF826383346049A69733b3f9"
+        },
+        "mETH": {
+            "address": "0xd9b663D3aB9646F9DC75fc38EDE5810ec5501395"
+        },
+        "mDAI": {
+            "address": "0x3ae140b15b1CE1191c30A8e4E9c401a82A8047f1"
+        }
     },
     "5": {
-        "explorerURL": "https://goerli.etherscan.io/"
+        "explorerURL": "https://goerli.etherscan.io/",
+        "exchange": {
+            "address": "0xBcabc7742689fE92C27DEFb9B65e670ed42fdA24"
+        },
+        "MT": {
+            "address": "0x7d7582834aFdBb86FF826383346049A69733b3f9"
+        },
+        "mETH": {
+            "address": "0xd9b663D3aB9646F9DC75fc38EDE5810ec5501395"
+        },
+        "mDAI": {
+            "address": "0x3ae140b15b1CE1191c30A8e4E9c401a82A8047f1"
+        }
     }
 }

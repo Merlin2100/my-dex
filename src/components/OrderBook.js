@@ -25,7 +25,7 @@ const OrderBook = () => {
         <div className="flex">
 
         {!orderBook || orderBook.sellOrders.length === 0 ? (
-          <p className="flex-centrer">No Sell Orders</p>
+          <p className="flex-center">No Sell Orders</p>
         ) : (
           <table className="exchange__orderbook--sell">
             <caption>Selling</caption>
@@ -40,8 +40,8 @@ const OrderBook = () => {
               {orderBook && orderBook.sellOrders.map((order, index) => {
                 return(
                   <tr key={index} onClick={() => fillOrderHandler(order)}>
-                    <td>{order._token0AMount}</td>
-                    <td style ={{ color: `${order._orderTypeClass}`}}>{order._tokenPrice}</td>
+                    <td>{order._token0Amount}</td>
+                    <td style={{ color: `${order._orderTypeClass}`}}>{order._tokenPrice}</td>
                     <td>{order._token1Amount}</td>
                   </tr>
                 )
@@ -53,9 +53,9 @@ const OrderBook = () => {
           <div className="divider"></div>
   
           {!orderBook || orderBook.buyOrders.length === 0 ? (
-          <p className="flex-centrer">No Buy Orders</p>
+          <p className="flex-center">No Buy Orders</p>
         ) : (
-          <table className="exchange__orderbook--buy">
+          <table className="exchange__orderbook--sell">
             <caption>Buying</caption>
             <thead>
               <tr>
@@ -68,8 +68,8 @@ const OrderBook = () => {
               {orderBook && orderBook.buyOrders.map((order, index) => {
                 return(
                   <tr key={index} onClick={() => fillOrderHandler(order)}>
-                    <td>{order._token0AMount}</td>
-                    <td style ={{ color: `${order._orderTypeClass}`}}>{order._tokenPrice}</td>
+                    <td>{order._token0Amount}</td>
+                    <td style={{ color: `${order._orderTypeClass}`}}>{order._tokenPrice}</td>
                     <td>{order._token1Amount}</td>
                   </tr>
                 )

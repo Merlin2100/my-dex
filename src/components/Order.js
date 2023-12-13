@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef } from "react"
 import { makeBuyOrder, makeSellOrder } from "../store/interactions"
 import { useSelector, useDispatch } from "react-redux"
 
@@ -75,11 +75,11 @@ const Order = () => {
             )}
 
             <input 
-                type="text" 
-                id="price" 
-                placeholder="0.0000" 
-                value={price === 0 ? "" : price}
-                onChange={(e) => setPrice(e.target.value)} 
+              type="text" 
+              id="price" 
+              placeholder="0.0000" 
+              value={price === 0 ? "" : price}
+              onChange={(e) => setPrice(e.target.value)}
             />
   
           <button className="button button--filled" type="submit">

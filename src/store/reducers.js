@@ -134,8 +134,8 @@ export const exchange = (state = DEFAULT_EXCHANGE_STATE, action) => {
         ...state,
         transaction: {
           transactionType: 'Transfer',
-          isPending:  true,
-          isSuccwessful: false
+          isPending: true,
+          isSuccessful: false
         },
         transferInProgress: true
       }
@@ -157,8 +157,8 @@ export const exchange = (state = DEFAULT_EXCHANGE_STATE, action) => {
         ...state,
         transaction: {
           transactionType: 'Transfer',
-          isPending:  false,
-          isSuccwessful: false,
+          isPending: false,
+          isSuccessful: false,
           isError: true
         },
         transferInProgress: false
@@ -169,7 +169,8 @@ export const exchange = (state = DEFAULT_EXCHANGE_STATE, action) => {
         ...state,
         transaction: {
           transactionType: 'New Order',
-          isPending:  true
+          isPending: true,
+          isSuccessful: false
         }
       }
 
@@ -178,8 +179,8 @@ export const exchange = (state = DEFAULT_EXCHANGE_STATE, action) => {
           ...state,
           transaction: {
             transactionType: 'New Order',
-            isPending:  false,
-            isSuccwessful: false,
+            isPending: false,
+            isSuccessful: false,
             isError: true
           }
         }

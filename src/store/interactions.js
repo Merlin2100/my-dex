@@ -17,7 +17,7 @@ export const loadNetwork = async (provider, dispatch) => {
 }
 
 export const loadAccount = async (provider, dispatch) => {
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts'})
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     const account = ethers.utils.getAddress(accounts[0])
 
     dispatch({ type: 'ACCOUNT_LOADED', account })
@@ -66,7 +66,7 @@ export const loadBalances = async (exchange, tokens, account, dispatch) => {
 
     balance = await exchange.balanceOf(tokens[1].address, account)
     balance = ethers.utils.formatUnits(balance, 18)
-    dispatch({ type: 'EXCHANGE_TOKEN_2_BALANCE_LOADED', balance  })
+    dispatch({ type: 'EXCHANGE_TOKEN_2_BALANCE_LOADED', balance })
 }
 
 export const loadAllOrders = async (provider, exchange, dispatch) => {
@@ -105,12 +105,12 @@ export const subscribeToEvents = (exchange, dispatch) => {
         dispatch({ type: 'NEW_ORDER_SUCCESS', order, event })
     })
 
-    exchange.on('Cancel', (id, user, tokenGet, amountGet, tokenGive, amountGive, timestamp, event) => {
+    exchange.on("Cancel", (id, user, tokenGet, amountGet, tokenGive, amountGive, timestamp, event) => {
         const order = event.args
         dispatch({ type: 'ORDER_CANCEL_SUCCESS', order, event })
     })
 
-    exchange.on('Trade', (id, user, tokenGet, amountGet, tokenGive, amountGive, creator, timestamp, event) => {
+    exchange.on("Trade", (id, user, tokenGet, amountGet, tokenGive, amountGive, creator, timestamp, event) => {
         const order = event.args
         dispatch({ type: 'ORDER_FILL_SUCCESS', order, event })
     })

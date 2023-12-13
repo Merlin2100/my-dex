@@ -14,12 +14,12 @@ async function main() {
 
   // Deploy the contracts
   const MT = await Token.deploy("My Token", "MT", "1000000")
-  console.log(`MT  deployed at: ${MT.address}`)
+  console.log(`MT deployed at: ${MT.address}`)
 
-  const mETH = await Token.deploy("My mETH", "mETH", "1000000")
+  const mETH = await Token.deploy("Mock ETH", "mETH", "1000000")
   console.log(`mETH deployed at: ${mETH.address}`)
 
-  const mDAI = await Token.deploy("My mDAI", "mDAI", "1000000")
+  const mDAI = await Token.deploy("Mock DAI", "mDAI", "1000000")
   console.log(`mDAI deployed at: ${mDAI.address}`)
 
   const exchange = await Exchange.deploy(accounts[1].address, 10)
