@@ -1,5 +1,6 @@
 const config = require("../src/config.json")
 
+
 const tokens = (n) => {
     return ethers.utils.parseUnits(n.toString(), 18)
 }
@@ -9,8 +10,8 @@ async function main() {
     const accounts = await ethers.getSigners()
 
     // Fetch network    
-    const { chainId } = await ethers.provider.getNetwork()
-    console.log("Using chain id;", chainId)
+    const chainId =1337
+    console.log("Using chain id: ", chainId)
 
     // Fetch deployed tokens
     const MT = await ethers.getContractAt("Token", config[chainId].MT.address)
