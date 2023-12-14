@@ -12,7 +12,6 @@ export const loadProvider = (dispatch) => {
 export const loadNetwork = async (provider, dispatch) => {
     const network= await provider.getNetwork()
     const aChainId = network.chainId.toString()
-    console.log(`Network: ${aChainId}`)
     dispatch({ type: 'NETWORK_LOADED', aChainId })
 
     return aChainId
