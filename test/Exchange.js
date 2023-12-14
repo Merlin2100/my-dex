@@ -197,7 +197,7 @@ describe("Checking Balances", () => {
                 // _amoiuntGet = amount = tokens(1) = 10^18 is a multiple of 100 = 10^2 and, therefore,
                 // leads to _feeAmount = _amountGet * feePercent / 100 = 10^18 + 10 / 100 = 10^17 * 100 / 100 = 10^17
                 // Note that 10^17 is a positive integer between 0 and 2^256 - 1 (i.e., of type uint) and, a valid value for _feeAmount.
-                await expect(exchange.connect(user1).makeOrder(token2.address, 42, token1.address, amount)).to.be.revertedWith("Invalid value for _amountGet. Must be multiple of 100")
+                await expect(exchange.connect(user1).makeOrder(token2.address, 42, token1.address, amount)).to.be.revertedWith("Invalid value for _amountGet. Must be multiple of 100.")
             })
 
         })
