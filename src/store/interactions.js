@@ -10,10 +10,12 @@ export const loadProvider = (dispatch) => {
 }
  
 export const loadNetwork = async (provider, dispatch) => {
-    const { chainId } = await provider.getNetwork()
-    dispatch({ type: 'NETWORK_LOADED', chainId })
+    const network= await provider.getNetwork()
+    const aChainId = network.chainId.toString()
+    console.log(`Network: ${aChainId}`)
+    dispatch({ type: 'NETWORK_LOADED', aChainId })
 
-    return chainId
+    return aChainId
 }
 
 export const loadAccount = async (provider, dispatch) => {
