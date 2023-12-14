@@ -130,7 +130,7 @@ describe("Token", () => {
         describe("Failing Approvals", () => {
 
             it("Rejects approval if spender is the zero address", async () => {
-                await expect(token.connect(deployer).approve("0x0000000000000000000000000000000000000000", amount)).to.be.revertedWith("Approval to zero address is not permitted")
+                await expect(token.connect(deployer).approve("0x0000000000000000000000000000000000000000", amount)).to.be.revertedWith("Approval of zero address is not permitted")
             })
 
         })
