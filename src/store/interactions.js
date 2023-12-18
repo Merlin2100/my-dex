@@ -12,8 +12,7 @@ export const loadProvider = (dispatch) => {
 export const loadNetwork = async (provider, dispatch) => {
     const { chainId } = await provider.getNetwork()
     dispatch({ type: 'NETWORK_LOADED', chainId })
-    dispatch({ type: 'NETWORK_LOADED', chainId })
-
+  
     return chainId
 }
 
@@ -22,6 +21,7 @@ export const loadAccount = async (provider, dispatch) => {
     const account = ethers.utils.getAddress(accounts[0])
 
     dispatch({ type: 'ACCOUNT_LOADED', account })
+
 
     let balance = await provider.getBalance(account) 
     balance = ethers.utils.formatEther(balance)

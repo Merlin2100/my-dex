@@ -6,7 +6,7 @@ import config from "../config.json"
 const Alert = () => {
    const alertRef = useRef(null)
 
-    const network = useSelector(state => state.provider.chinId)
+    const network = useSelector(state => state.provider.chainId)
     const isPending = useSelector(state => state.exchange.transaction.isPending)
     const isError = useSelector(state => state.exchange.transaction.isError)
     const account = useSelector(state => state.provider.account)
