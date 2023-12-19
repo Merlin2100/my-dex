@@ -32,7 +32,7 @@ Ensure you have the following chain IDs configured for the test networks:
 
 ### Frontend Hosting
 
-The frontend is hosted at [Placeholder URL]. You can access the application by visiting [Placeholder URL] in your web browser.
+The frontend is hosted at [IPFS]. You can access the application by visiting [https://throbbing-cloud-0490.on.fleek.co/] in your web browser.
 
 ## License
 
