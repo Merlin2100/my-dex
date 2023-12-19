@@ -32,7 +32,7 @@ Ensure you have the following chain IDs configured for the test networks:
 
 ### Frontend Hosting
 
-The frontend is hosted at [IPFS]. You can access the application by visiting [https://dawn-cherry-0718.on.fleek.co/] in your web browser.
+The frontend is hosted at [IPFS]. You can access the application by visiting [https://merlin2100-my-dex.on.fleek.co/] in your web browser.
 
 ## License
 
