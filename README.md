@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# my-dex - Decentralized Exchange Example
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+`my-dex` is a comprehensive example project that walks you through the process of creating a decentralized exchange (DEX) with its own custom cryptocurrency. This project serves as a practical guide for developers looking to understand and implement key components of a DEX, including the smart contract logic and the frontend user interface.
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+The primary goal of `my-dex` is to provide a hands-on experience in developing a DEX, covering aspects such as token creation, the implementation of a decentralized exchange contract, and the development of a user-friendly frontend using React and Redux. Whether you are a beginner exploring blockchain development or an experienced developer diving into decentralized finance (DeFi), this project aims to be a valuable resource.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Custom Cryptocurrency Creation:** Walks you through the process of creating your own cryptocurrency on the Ethereum blockchain.
+- **Decentralized Exchange Contract:** Implements a decentralized exchange contract, allowing users to trade tokens in a secure and decentralized manner.
+- **React and Redux Frontend:** Demonstrates how to build a frontend interface using popular web development tools like React and Redux, providing users with a seamless and interactive experience.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Before you begin, make sure you have the following prerequisites installed and set up:
 
-### `npm run build`
+- [MetaMask](https://metamask.io/) installed in your web browser.
+- A Hardhat wallet available in MetaMask.
+- Three test networks, Goerli, Sepolia, and Hardhat, set up in MetaMask.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Test Network Chain IDs
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Ensure you have the following chain IDs configured for the test networks:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Goerli: 5
+- Sepolia: 11155111
+- Hardhat: 31337
 
-### `npm run eject`
+### Frontend Hosting
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The frontend is hosted at [Placeholder URL]. You can access the application by visiting [Placeholder URL] in your web browser.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## License
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

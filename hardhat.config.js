@@ -10,11 +10,10 @@ module.exports = {
     localhost: {
       url: "http://127.0.0.1:8545/"
     },
-    // That might be a bug in MetaMask's API specifically regarding the Sepolia network.
-    // sepolia: {
-    //   url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_SEPOLIA_API_KEY}`,
-    //   accounts: privateKeys.split(",")
-    // },
+    sepolia: {
+      url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_SEPOLIA_API_KEY}`,
+      accounts: privateKeys.split(",")
+    },
     goerli: {
       url: `https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_GOERLI_API_KEY}`,
       accounts: privateKeys.split(",")
